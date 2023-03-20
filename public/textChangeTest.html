@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cocreation</title>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.1/themes/base/jquery-ui.min.css">
+		<link rel="stylesheet" href="stylesheets/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.1/jquery-ui.min.js"></script>
+	<script src = "textChangeTest.js"></script>
+</head>
+
+<body>
+
+	<div id = "fullPage">
+
+		<div id= "mainBox">
+
+			<div id="chatBox"></div>
+			<br>
+
+			<div id = 'chatInputBox'>
+
+				<form id = "chatInterface" action = "/chatBot" method="POST">
+					<input id = "testInput" type="text" name="testInput" placeholder="What do you want to talk about?" autocomplete="off">
+					<input id = "chatButton" type="submit" value = "Send" class = 'invisButtons'>
+				</form>
+
+				<form id = "topicSelectForm" action = "/topicSelect" method="POST">
+					<input id = "topicSelectText" type="text" name="topicSelectText" class = 'roundedTextFieldB' placeholder="Choose a topic and press enter" autocomplete="off">
+					<input id = "topicSelectButton" type="submit" value = "Send" class = 'invisButtons'>
+				</form>
+
+				<!-- <p class = 'p1'>Topic: Climate Change </p>  -->
+			</div>
+		</div>
+
+		<div id = 'rightBox'>
+
+			<div id= "ideaBox">	</div>
+
+			<br>
+			
+			<div id = 'ideaInputBox'>
+
+				<div id = 'buttonBox'>
+					<button id = "tldrButton" value = "TL;DR" class = 'auxButton'>Summarize Chat</button>
+					<button id = "promptButton" value = 'Prompt Me' class = 'auxButton'>Writer's Block</button>
+					<button id = "resetButton" value = 'Reset Chat' class = 'auxButton'>Clear Chat</button>
+				</div>
+
+				<div id = 'ideaSourceInputDiv'>
+					<form id = "ideaSourceForm" action = "/ideaSourceSummary" method="POST">
+						<input id = "ideaSourceText" type="text" name="ideaSourceText" class = 'roundedTextFieldG' placeholder="Explain an idea">
+						<input id = "ideaSourceButton" type="submit" value = "Send" class = 'invisButtons'>
+					</form>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id = "introDiv">
+    <h4>
+      Imagine you are writing a paper that explores how advances in AI can change our relationship with death and mortality. 
+    </h4>
+    <p1>
+      However, you're having trouble writing a catchy intro for your paper. Try to use the tool below to generate an intro based off of your choice in inspirations, sources, or concepts. Go into as much or as little detail as you like.
+    </p1>
+  </div>
+
+  <br><br>
+
+  <div id="sourceList">
+    <form action = "/choose_source_test" method="POST">
+      <fieldset>
+
+        <div>
+        <label for="q">Your prompt:</label>
+          <textarea id="query" name="query" size="40" type="text" style="width:190px;height:60px;" placeholder="Write the name of a blockchain based carbon capture business"></textarea><br><br>
+        </div>
+
+        <div>
+          <label for="sname">Your inspirations or sources:</label><br>
+          <p style="font-size: 10px;">
+            (They can be pieces of work you like, a writing style you want to emulate, or just a vibe. You don't have to list all 4 either.)
+          </p>
+          <label for="source1" class="container">1:</label> 
+          <input id="otherText" maxlength="160" name="otherText" size="40" type="text" placeholder="Starry Night by Van Gogh">
+          
+        </div>
+
+        <div>
+          <label for="source2" class="container">2:</label> 
+          <input id="otherText" maxlength="160" name="otherText" size="40" type="text" placeholder="National Geographic magazine">
+          
+        </div>
+       
+        <div>
+          <label for="source3" class="container">3:</label> 
+          <input id="otherText" maxlength="160" name="otherText" size="40" type="text" placeholder="tabloid writing stle">
+         
+        </div>
+
+         <div>
+          <label for="source4" class="container">4:</label> 
+          <input id="otherText" maxlength="160" name="otherText" size="40" type="text" placeholder="the works of H.P Lovecraft">
+         
+        </div>
+<!--     <div>
+      <input type="checkbox" id="source1" name="source" value="source1">
+      <label for="source1">Source 1:</label>
+       <input type="text" id="source1Value" name="source1">
+    </div>
+
+    <div>
+      <input type="checkbox" id="source2" name="source" value="source2">
+      <label for="source2">Source 2:</label>
+      <input type="text" id="source2Value" name="source2">
+    </div>
+
+    <div>
+      <input type="checkbox" id="source3" name="source" value="source3">
+      <label for="source3">Source 3:</label>
+      <input type="text" id="source3Value" name="source3">
+    </div> -->
+
+<!--     <input list="genres" name="genre">
+      <datalist id="genres">
+        <option value="murder mystery">
+        <option value="romance">
+        <option value="magical realism">
+        <option value="spy">
+        </datalist> -->
+
+        <input type="submit"> <br>
+      </fieldset>
+    </form>
+  </div>
+
+  <script src="formScript.js">
+  </script>
+
+</body>
+</html>
+

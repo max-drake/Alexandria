@@ -1,0 +1,270 @@
+:root {
+  /*--mainColor: #5091e6;*/
+  --mainColor:  #e46441;
+  --lGrey: #eeeeee;
+  --mainWidth: 400px;
+  --cornerRad: 8px;
+  --borderWeight: 2px;
+  --coolGreen: #a9decc; 
+  --coolPink: #ebc3e1;
+  --webOneGrey: #c0c0c0;
+  /*--ideaColor: lightgreen;*/
+  --ideaColor: #e46441;
+}
+
+
+
+@font-face {
+    font-family: 'lackregular';
+    src: url('lack-regular-webfont.woff2') format('woff2'),
+         url('lack-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body {
+  padding: 20px;
+  /*background-color: #c0c0c0;*/
+  font: 16px Helvetica, Arial, sans-serif;
+  /*font-smooth: always;*/
+}
+
+#topicSelectForm {
+  margin-top: 18px;
+  /*width: 100%;
+  height: 40px;
+  padding: 12px 12px;
+  box-sizing: border-box;
+  border: var(--borderWeight) solid var(--mainColor);
+  border-radius: var(--cornerRad);
+  background: var(--mainColor);
+  font-size: 16px;*/
+}
+
+#topicSelectForm--top {
+  align-self: flex-start;
+}
+
+#topicSelectForm--bottom {
+  align-self: flex-end;
+}
+
+.roundedTextFieldB:disabled {
+  background: white;
+  color: white;
+}
+
+#fullPage {
+ display: flex;
+ gap: 20px;
+ height: 625px;
+}
+
+#mainBox { 
+  order: 1;
+  flex-grow: 1;
+  background: #ffffff;
+  max-width: var(--mainWidth);
+  position: relative;
+  height: 100%;
+  box-align: center;
+  /*width: 300px;*/
+}
+
+#chatBox { 
+  /*background: #cccccc;*/
+  max-width: 400px;
+  padding: 20px 10px 10px 10px;
+  box-sizing: border-box;
+  border: var(--borderWeight) solid var(--mainColor);
+  border-radius: var(--cornerRad);
+  /*background: var(--lGrey);*/
+  height: 100%;
+  /*overflow: scroll;*/
+  overflow-y: scroll;
+}
+
+#chatBox::-webkit-scrollbar {
+  display: none;
+}
+
+#human {
+  color: black;
+  float: right;
+  background: var(--mainColor);
+  /*background: var(--coolGreen);*/
+  font: 40px;
+  min-width: 150px;
+  max-width: 190px;
+  display: block;
+  margin-bottom: 20px;
+  padding: 5px 8px 5px 8px;
+  border-radius: var(--cornerRad);
+  /*filter: drop-shadow(6px 6px 20px #a497cf);*/
+}
+
+#machine {
+  color: black;
+  font-style: italic;
+  float: left;
+  background: var(--lGrey);
+  /*background: var(--coolPink);*/
+  font: 40px;
+  min-width: 150px;
+  max-width: 210px;
+  display: block;
+  margin-bottom: 20px;
+  margin-right: 100px;
+  padding: 5px 8px 5px 8px;
+  border-radius: var(--cornerRad);
+  /*filter: drop-shadow(6px 6px 20px #a497cf);*/
+}
+
+#chatInputBox {
+  display: flex;
+  flex-direction: column;
+
+}
+
+#chatInterface {
+  position: relative;
+  width: 100%;
+}
+
+#testInput {
+  width: 100%;
+  /*flex: 1;*/
+  height: 40px;
+  padding: 12px 12px;
+  box-sizing: border-box;
+  border: var(--borderWeight) solid var(--mainColor);
+  border-radius: var(--cornerRad);
+  /*background: var(--webOneGrey);*/
+  font-size: 16px;
+}
+
+.invisButtons {
+  width: 90px;
+  height: 40px;
+  background-color: red; 
+  border: none;
+  color: white;
+  padding: 12px 12px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: var(--cornerRad);
+  display: none;
+}
+
+#rightBox {
+  order: 2;
+  flex-grow: 1;
+  height: 100%;
+}
+
+#ideaBox {
+/*  order: 2;
+  flex-grow: 3;*/
+  height: 100%;
+  padding: 40px;
+  /*max-width: 200px;*/
+  box-sizing: border-box;
+  border: var(--borderWeight) solid var(--ideaColor);
+  border-radius: var(--cornerRad);
+  /*overflow: hidden;*/
+  overflow-y: scroll;
+}
+
+#ideaBox::-webkit-scrollbar {
+  display: none;
+}
+
+#ideaInputBox {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+#ideaSourceInputDiv {
+  order: 2;
+}
+
+#tldrSpan {
+  color: black;
+  /*align: center;*/
+  /*float: right;*/
+  background: var(--lGrey);
+  /*background: var(--coolGreen);*/
+  font: 24px;
+  /*min-width: 10px;*/
+  max-width: 200px;
+  display: block;
+  /*margin-bottom: 20px;*/
+  padding: 5px;
+  /*border-radius: var(--cornerRad);*/
+}
+
+.tldrClass {
+  border-style: none;
+  min-width: 10px;
+  max-width: 280px;
+}
+
+#buttonBox{
+  order: 1;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 40px;
+  gap: 20px;
+/*  box-sizing: border-box;
+  border: var(--borderWeight) solid var(--ideaColor);
+  border-radius: var(--cornerRad)*/;
+}
+
+.auxButton {
+  /*width: 90px;*/
+  width: 100%;
+  height: 40px;
+  background-color: var(--ideaColor); 
+  border: none;
+  color: white;
+  padding: 12px 12px;
+  text-align: center;
+  font-size: 16px;
+  border-radius: var(--cornerRad);
+  filter: drop-shadow(4px 4px 6px #cccccc);
+}
+
+.roundedTextFieldG {
+  width: 100%;
+  /*flex: 1;*/
+  height: 40px;
+  padding: 12px 12px;
+  box-sizing: border-box;
+  border: var(--borderWeight) solid var(--ideaColor);
+  border-radius: var(--cornerRad);
+  /*background: var(--webOneGrey);*/
+  font-size: 16px;
+}
+
+.roundedTextFieldB {
+  width: 100%;
+  /*flex: 1;*/
+  height: 40px;
+  padding: 12px 12px;
+  box-sizing: border-box;
+  border: var(--borderWeight) solid var(--mainColor);
+  border-radius: var(--cornerRad);
+  /*background: var(--webOneGrey);*/
+  font-size: 16px;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
