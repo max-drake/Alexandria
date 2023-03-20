@@ -2,6 +2,7 @@
 This project was my final output from the Design/Engineering Masters program at Imperial College London and the Royal College of Art I attended between 2020 and 2022. The project was finished in June of 2022.
 
 _An excerpt from the paper:_
+
 Humans have always looked for ways to outsource cognitive load to objects and machines in the
 world, an outsourcing which has formed the basis for much of civilization. Recording taxes and
 laws on clay tablets allowed increasingly complex societies to keep track of more interlocking
