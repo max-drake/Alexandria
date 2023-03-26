@@ -175,6 +175,9 @@ body {
   border-radius: var(--cornerRad);
   /*overflow: hidden;*/
   overflow-y: scroll;
+  box-shadow: 0 0 15px 1px #EDEDED inset;
+  -webkit-box-shadow: 0 0 15px  1px #EDEDED inset;
+  -moz-box-shadow: 0 0 15px  1px #EDEDED inset;
 }
 
 #ideaBox::-webkit-scrollbar {
@@ -195,7 +198,8 @@ body {
   color: black;
   /*align: center;*/
   /*float: right;*/
-  background: var(--lGrey);
+  /* background: var(--lGrey); */
+  background: white;
   /*background: var(--coolGreen);*/
   font: 24px;
   /*min-width: 10px;*/
@@ -203,7 +207,8 @@ body {
   display: block;
   /*margin-bottom: 20px;*/
   padding: 5px;
-  /*border-radius: var(--cornerRad);*/
+  border-radius: var(--cornerRad);
+  border: var(--borderWeight) solid var(--ideaColor);
 }
 
 .tldrClass {

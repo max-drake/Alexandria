@@ -3,7 +3,7 @@ $(document).ready(function() {
 	var box = document.getElementById('chatBox');
 	var ideaBox = document.getElementById('ideaBox');
 	alert("To start, type what topic you'd like to explore in the bottom left box");
-// document.getElementById('ideaBox').lastChild.scrollIntoView(true);
+	// document.getElementById('ideaBox').lastChild.scrollIntoView(true);
 	$('#chatInterface').on('submit', function(event) {
 		event.preventDefault();
 
@@ -51,9 +51,6 @@ $(document).ready(function() {
 			ideaAppend(data);
 		});
 
-
-
-		// $('#topicSelectForm').children('#topicSelectText').val(''); 
 	});
 
 	function chatAppend(text, author){ 
