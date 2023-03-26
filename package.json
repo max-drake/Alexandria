@@ -16,6 +16,7 @@
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
     "node-fetch": "^2.6.7",
+    "pug": "^3.0.2",
     "quick_tree": "^0.0.4",
     "transformers": "^3.1.0",
     "treantjs": "github:fperucic/treant-js",
