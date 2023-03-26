@@ -16,11 +16,6 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-var topic = '';
-
-const promptBP1 = 'The following is a conversation between a human designer and an advanced AI. The AI facillitates creative collaboration and likes new ideas. The human is attempting to brainstorm for a project in the field of '
-const promptBP2 = '.\nHuman: Hi, how are you?\nAI: I\'m well, thanks. How can I help?\nHuman:'
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -34,51 +29,42 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+var topic = '';
+var main_transcript = [];
+
 app.get('/', (req, res) => {
   res.render('index')
 });
 
 app.post('/chatBot', async function(req,res){ 
 
-  var sentText = req.body.testInput;
-  var textToAppend = ' ' + sentText + '\n' + 'AI Collaborator:'
-  
-  fs.appendFileSync('./public/gptPrompts/chatLogTemp.txt', textToAppend, function (err) {
-    if (err) throw err;
-  });
+  var sentText = req.body.testInput; 
+  var gptOutput = await textGen(sentText, main_transcript, 256, 1);
 
-  var textForGPT = await loadTempPrompt('./public/gptPrompts/chatLogTemp.txt');
-  //console.log(textForGPT);
-  var gptOutput = await textGen(textForGPT, 128, 1);
-
-  fs.appendFile('./public/gptPrompts/chatLogTemp.txt', gptOutput + '\n' + 'Human:', function (err) {
-    if (err) throw err;
-  });
-  //console.log(gptOutput);
   res.send(gptOutput);
 
 });
 
-app.post('/loadBP', function(req,res){
-
-  fs.readFile('./public/gptPrompts/promptBoilerplate.txt', 'utf8', function(err, data) {
-    if (err) throw err;
-    // console.log(data);
-    saveTempFile(data);
-    res.send(data);
-  });
-  
+app.post('/chatReset', function(req,res) {
+  let systemMessage = 'The following is a conversation between a human and an advanced AI assistant. The assistant facillitates creative collaboration and likes new ideas. This assistant also asks lots of questions to get the human to reflect on their work. The human is attempting to brainstorm for a project in the field of ';
+  systemMessage = systemMessage + topic + ".";
+  main_transcript = [];
+  main_transcript = addToTranscript("system", systemMessage, main_transcript);
 });
 
-app.post('/topicSelect', async function(req,res){
-  var sentTopic = req.body.topicSelectText;
+app.post('/topicSelect', async function(req,res) {
+  // const promptBP1 = 'The following is a conversation between a human designer and an advanced AI assistant. The AI facillitates creative collaboration and likes new ideas. The human is attempting to brainstorm for a project in the field of ';
+  // const promptBP2 = '.\nHuman: Hi, how are you?\nAI: I\'m well, thanks. How can I help?\nHuman:';
+
+  let systemMessage = 'The following is a conversation between a human and an advanced AI assistant. The assistant facillitates creative collaboration and likes new ideas. This assistant also asks lots of questions to get the human to reflect on their work. The human is attempting to brainstorm for a project in the field of ';
+  
+  let sentTopic = req.body.topicSelectText;
   topic = sentTopic;
-  //console.log("topic is " + topic)
-  var filledInTopicBP = promptBP1 + sentTopic + promptBP2;
-  // console.log(filledInTopicBP);
-  saveTempFile(filledInTopicBP);
-  var starterQ = 'What is 1 provocative question in the field of '
-  var topicStarter = await textGen(starterQ + topic + '?', 24, 1);
+  systemMessage = systemMessage + topic + ".";
+  main_transcript = addToTranscript("system", systemMessage, main_transcript);
+  
+  let starterQ = 'What is 1 provocative question in the field of ' + topic + '?';
+  let topicStarter = await textGen(starterQ, [], 24, 1);
   
   res.send(topicStarter);
 
@@ -86,14 +72,10 @@ app.post('/topicSelect', async function(req,res){
 
 app.post('/tldr', async function(req,res){
 
-  var tempLogString = './public/gptPrompts/chatLogTemp.txt';
-
-  fs.appendFile(tempLogString, '\n' + 'TL;DR:', async function (err) {
-    if (err) throw err;
-    var tldrPrompt = await loadTempPrompt(tempLogString);
-    var tldrAnswer = await textGen(tldrPrompt, 128, 1);//, 'tldr');
-    res.send(tldrAnswer);
-  });
+  var temp_main_transcipt = main_transcript;
+  var tldrPrompt = "Succintly summarize our conversation up until this point. Don't use 'you' or 'me', just summarize the information exchanged between us." 
+  var tldr = await textGen(tldrPrompt, temp_main_transcipt, 256, 1);
+  res.send(tldr);
 
 });
 
@@ -105,16 +87,14 @@ app.post('/keywordGen', async function(req,res){
   } else {
     var str = 'List 1 researcher or author in the field of ';
   }
-  var keyword = await textGen(str + topic + '.', 12, 1);
-  console.log(keyword);
+  var keyword = await textGen(str + topic + '.', [], 24, 1);
   res.send(keyword);
 });
 
 app.post('/ideaSourceSummary', async function(req, res){
   var sentText = req.body.ideaSourceText;
   var cmd = 'Briefly summaraize ';
-  // console.log(cmd+sentText);
-  var summary = await textGen(cmd + sentText + '.', 60, 0.5);
+  var summary = await textGen(cmd + sentText + '.', [], 128, 0.5);
   res.send(summary);
 });
 
@@ -136,46 +116,25 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-///// TREE TESTING
+// functions
 
-
-var convoTree = tr.tree({children: [
-  {
-    name: 'start'
-  }]});
-var convoRoot = convoTree.find('/start');
-convoRoot.append(tr.tree({name:'Hi how are you?'}));
-var children = convoTree.find('/start').children();
-
-//console.log(children[0].name());
-
-///// END TREE TESTING
-
-// the following are my functions
-
-function saveTempFile(data){
-  fs.writeFile('./public/gptPrompts/chatLogTemp.txt', data, err => {
-    if (err) {
-      console.error(err);
-    }    
-  });
+function addToTranscript(role, content, transcript) {
+  let new_message =  {role: role, content: content};
+  transcript.push(new_message);
+  return transcript;
 }
 
-async function loadTempPrompt(promptPath) {
-  const data = await fsp.readFile(promptPath,'utf8');
-  return data;
-}
-
-async function textGen(prompt, tokenLimit, temp) {
-
+async function textGen(prompt, transcript, tokenLimit, temp) {
+  
+  transcript = addToTranscript("user", prompt, transcript);
+  console.log(transcript);
   const url = 'https://api.openai.com/v1/chat/completions'; //check api to get right url
 
   const params = {
     "model": "gpt-3.5-turbo",
-    "messages": [{"role":"user", "content": prompt}],
+    "messages": transcript,
     "max_tokens": tokenLimit,
     "temperature": temp,
-    // "frequency_penalty": .5,
     "stop": ["AI Collaborator:", "Human:", "AI:"]
   }; 
 
@@ -185,10 +144,12 @@ async function textGen(prompt, tokenLimit, temp) {
 
   try {
     const response = await got.post(url, {json: params, headers: headers}).json();
-    output = `${response.choices[0].message.content}`;
+    var output_message_content = `${response.choices[0].message.content}`;
+    var output_message = response.choices[0].message;
+    transcript.push(output_message);
   } catch (err) {
     console.log(err);
   }
 
-  return output;
+  return output_message_content;
 }

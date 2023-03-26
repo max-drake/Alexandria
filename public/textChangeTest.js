@@ -1,7 +1,5 @@
 $(document).ready(function() {
 
-	// $.post('/loadBP'); //loads chatbot boilerplate prompt
-
 	var box = document.getElementById('chatBox');
 	var ideaBox = document.getElementById('ideaBox');
 	alert("To start, type what topic you'd like to explore in the bottom left box");
@@ -103,7 +101,7 @@ $(document).ready(function() {
 
 	$('#resetButton').on('click', function(event) {
 		box.replaceChildren();
-		// $.post('/loadBP');
+		$.post('/chatReset');
 	});
 
 });
