@@ -22,8 +22,8 @@ const promptBP1 = 'The following is a conversation between a human designer and 
 const promptBP2 = '.\nHuman: Hi, how are you?\nAI: I\'m well, thanks. How can I help?\nHuman:'
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
