@@ -8,8 +8,6 @@ const got = require('got');
 const bodyParser = require('body-parser');
 var fsp = require('fs').promises;
 var fs = require('fs');
-const tr = require('hookable-tree'); //tree library
-// const ant = require('treantjs'); //better tree library?
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
